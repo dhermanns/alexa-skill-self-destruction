@@ -5,6 +5,7 @@ import com.amazon.speech.speechlet.interfaces.audioplayer.AudioItem;
 import com.amazon.speech.speechlet.interfaces.audioplayer.PlayBehavior;
 import com.amazon.speech.speechlet.interfaces.audioplayer.Stream;
 import com.amazon.speech.speechlet.interfaces.audioplayer.directive.PlayDirective;
+import com.amazon.speech.ui.SsmlOutputSpeech;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,30 +66,17 @@ public class HelloWorldSpeechlet implements Speechlet {
     }
 
     private SpeechletResponse getSelfDestructionResponse() {
-        String speechText = "Hallo! Du möchtest also die Selbstzerstörung wirklich starten?... 5 - 4 - 3 - 2 - 1 - 0";
+        String speechText =
+                "<speak>" +
+                        "Hallo! Du möchtest also die Selbstzerstörung wirklich starten?... 5 - 4 - 3 - 2 - 1 - 0" +
+                        "<audio src='https://www.soundjay.com/mechanical/sounds/explosion-03.mp3' />" +
+                "</speak>";
 
         // Create the plain text output.
-        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-        speech.setText(speechText);
+        SsmlOutputSpeech speech = new SsmlOutputSpeech();
+        speech.setSsml(speechText);
 
-        // Add the explosion sound
-        PlayDirective playDirective = new PlayDirective();
-
-        AudioItem audioItem = new AudioItem();
-        Stream stream = new Stream();
-        stream.setToken("12345");
-        stream.setOffsetInMilliseconds(0);
-        stream.setUrl("https://www.soundjay.com/mechanical/sounds/explosion-03.mp3");
-        audioItem.setStream(stream);
-
-        playDirective.setAudioItem(audioItem);
-        playDirective.setPlayBehavior(PlayBehavior.REPLACE_ALL);
-
-        SpeechletResponse response = new SpeechletResponse();
-        response.setShouldEndSession(true);
-        response.setDirectives(Arrays.<Directive>asList(playDirective));
-
-        return response;
+        return SpeechletResponse.newTellResponse(speech);
     }
 
     /**
