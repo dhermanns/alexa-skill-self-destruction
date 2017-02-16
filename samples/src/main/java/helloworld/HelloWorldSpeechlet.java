@@ -1,20 +1,19 @@
 package helloworld;
 
+import com.amazon.speech.speechlet.*;
+import com.amazon.speech.speechlet.interfaces.audioplayer.AudioItem;
+import com.amazon.speech.speechlet.interfaces.audioplayer.PlayBehavior;
+import com.amazon.speech.speechlet.interfaces.audioplayer.Stream;
+import com.amazon.speech.speechlet.interfaces.audioplayer.directive.PlayDirective;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.amazon.speech.slu.Intent;
-import com.amazon.speech.speechlet.IntentRequest;
-import com.amazon.speech.speechlet.LaunchRequest;
-import com.amazon.speech.speechlet.Session;
-import com.amazon.speech.speechlet.SessionEndedRequest;
-import com.amazon.speech.speechlet.SessionStartedRequest;
-import com.amazon.speech.speechlet.Speechlet;
-import com.amazon.speech.speechlet.SpeechletException;
-import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.Reprompt;
 import com.amazon.speech.ui.SimpleCard;
+
+import java.util.Arrays;
 
 public class HelloWorldSpeechlet implements Speechlet {
     private static final Logger log = LoggerFactory.getLogger(HelloWorldSpeechlet.class);
@@ -72,7 +71,24 @@ public class HelloWorldSpeechlet implements Speechlet {
         PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
         speech.setText(speechText);
 
-        return SpeechletResponse.newTellResponse(speech);
+        // Add the explosion sound
+        PlayDirective playDirective = new PlayDirective();
+
+        AudioItem audioItem = new AudioItem();
+        Stream stream = new Stream();
+        stream.setToken("12345");
+        stream.setOffsetInMilliseconds(0);
+        stream.setUrl("https://www.soundjay.com/mechanical/sounds/explosion-03.mp3");
+        audioItem.setStream(stream);
+
+        playDirective.setAudioItem(audioItem);
+        playDirective.setPlayBehavior(PlayBehavior.REPLACE_ALL);
+
+        SpeechletResponse response = new SpeechletResponse();
+        response.setShouldEndSession(true);
+        response.setDirectives(Arrays.<Directive>asList(playDirective));
+
+        return response;
     }
 
     /**
