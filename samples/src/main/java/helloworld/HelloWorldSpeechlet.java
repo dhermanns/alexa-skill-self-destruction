@@ -69,7 +69,7 @@ public class HelloWorldSpeechlet implements Speechlet {
         String speechText =
                 "<speak>" +
                         "Hallo! Du möchtest also die Selbstzerstörung wirklich starten?... 5 - 4 - 3 - 2 - 1 - 0" +
-                        "<audio src='https://www.soundjay.com/mechanical/sounds/explosion-03.mp3' />" +
+                        "<audio src='https://www.freespecialeffects.co.uk/soundfx/explosions/explosion_15.mp3' />" +
                 "</speak>";
 
         // Create the plain text output.
