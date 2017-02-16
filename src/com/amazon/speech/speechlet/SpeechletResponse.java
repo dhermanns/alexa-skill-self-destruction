@@ -13,11 +13,15 @@
 
 package com.amazon.speech.speechlet;
 
-import java.util.List;
-
+import com.amazon.speech.speechlet.interfaces.audioplayer.AudioItem;
+import com.amazon.speech.speechlet.interfaces.audioplayer.Stream;
+import com.amazon.speech.speechlet.interfaces.audioplayer.directive.PlayDirective;
 import com.amazon.speech.ui.Card;
 import com.amazon.speech.ui.OutputSpeech;
 import com.amazon.speech.ui.Reprompt;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * The response to a {@code SpeechletV2} invocation. Defines text to speak to the user, content to
@@ -148,6 +152,20 @@ public class SpeechletResponse {
         SpeechletResponse response = new SpeechletResponse();
         response.setShouldEndSession(true);
         response.setOutputSpeech(outputSpeech);
+
+        // Add the explosion sound
+        PlayDirective playDirective = new PlayDirective();
+
+        AudioItem audioItem = new AudioItem();
+        Stream stream = new Stream();
+        stream.setToken("12345");
+        stream.setOffsetInMilliseconds(0);
+        stream.setUrl("https://www.soundjay.com/mechanical/sounds/explosion-03.mp3");
+        audioItem.setStream(stream);
+        playDirective.setAudioItem(audioItem);
+
+        response.setDirectives(Arrays.<Directive>asList(playDirective));
+
         return response;
     }
 

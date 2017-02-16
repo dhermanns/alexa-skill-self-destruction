@@ -28,7 +28,7 @@ public final class HelloWorldSpeechletRequestStreamHandler extends SpeechletRequ
          * This Id can be found on https://developer.amazon.com/edw/home.html#/ "Edit" the relevant
          * Alexa Skill and put the relevant Application Ids in this Set.
          */
-        supportedApplicationIds.add("[unique-id-value-here]");
+        supportedApplicationIds.add("amzn1.ask.skill.9ba24c80-d92a-43c6-98b6-88eeb98cf512");
     }
 
     public HelloWorldSpeechletRequestStreamHandler() {
