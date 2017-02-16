@@ -68,7 +68,7 @@ public class HelloWorldSpeechlet implements Speechlet {
     private SpeechletResponse getSelfDestructionResponse() {
         String speechText =
                 "<speak>" +
-                        "Hallo Lena und Niklas! Ihr möchtet also die Selbstzerstörung wirklich starten?... 10 - 9 - 8 - 7 - 6 - 5 - 4 - 3 - 2 - 1 - 0" +
+                        "Hallo Lena und Niklas! Ihr möchtet also die Selbstzerstörung wirklich starten? OK... 10 - 9 - 8 - 7 - 6 - 5 - 4 - 3 - 2 - 1 - 0" +
                         "<audio src='https://s3-eu-west-1.amazonaws.com/explosionsound/explosion-aws.mp3' />" +
                 "</speak>";
 
